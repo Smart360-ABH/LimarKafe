@@ -1,0 +1,5 @@
+# ignore server source files from being served as static assets
+/server/**
+/server
+/*.ts
+/*.tsx
