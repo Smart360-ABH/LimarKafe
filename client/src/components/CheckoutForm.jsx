@@ -11,8 +11,8 @@ export default function CheckoutForm({ onCloseAll }) {
   const handleSendWhatsApp = () => {
     if (!phone.trim()) { alert("Нужно указать номер телефона."); return; }
     const lines = [];
-    lines.push("Добрый день! Хочу сделать заказ:
-");
+lines.push(`Добрый день! Хочу сделать заказ:\n`);
+
     lines.push("*Заказ:*"); 
     items.forEach(it => { const line = `• ${it.name} - ${it.qty} x ${it.price}р = ${Number(it.qty) * Number(it.price)}р`; lines.push(line); });
     lines.push(""); lines.push(`*Итого к оплате:* ${calculateTotal()}р`);
