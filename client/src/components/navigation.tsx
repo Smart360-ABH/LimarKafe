@@ -1,5 +1,8 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'wouter';\nimport Cart from "Cart.jsx";\nimport { CartProvider } from "useCart.jsx";\n
+import { Link, useLocation } from 'wouter';
+import Cart from './Cart';
+import { CartProvider } from './useCart';
+
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -97,6 +100,7 @@ export default function Navigation() {
           </div>
         )}
       </div>
-      <Cart />\n</nav>
+      <Cart />
+</nav>
   );
 }

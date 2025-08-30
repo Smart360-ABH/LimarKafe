@@ -11,13 +11,15 @@ export default function CheckoutForm({ onCloseAll }) {
   const handleSendWhatsApp = () => {
     if (!phone.trim()) { alert("Нужно указать номер телефона."); return; }
     const lines = [];
-    lines.push("Добрый день! Хочу сделать заказ:\n");
+    lines.push("Добрый день! Хочу сделать заказ:
+");
     lines.push("*Заказ:*"); 
     items.forEach(it => { const line = `• ${it.name} - ${it.qty} x ${it.price}р = ${Number(it.qty) * Number(it.price)}р`; lines.push(line); });
     lines.push(""); lines.push(`*Итого к оплате:* ${calculateTotal()}р`);
     lines.push(`*Способ оплаты:* ${payment === "transfer" ? "Переводом" : "Наличными при получении"}`);
     lines.push(""); lines.push("*Мои данные:*"); lines.push(`Имя: ${name || "-"}`); lines.push(`Телефон: ${phone}`); lines.push(`Адрес: ${address || "-"}`); lines.push(`Комментарий: ${comment || "-"}`);
-    const text = lines.join("\n"); const phoneDigits = RESTAURANT_PHONE.replace(/\D/g, ""); const url = `https://wa.me/${phoneDigits}?text=${encodeURIComponent(text)}`;
+    const text = lines.join("
+"); const phoneDigits = RESTAURANT_PHONE.replace(/\D/g, ""); const url = `https://wa.me/${phoneDigits}?text=${encodeURIComponent(text)}`;
     window.open(url, "_blank"); clearCart(); if (onCloseAll) onCloseAll();
   };
 
