@@ -1715,6 +1715,8 @@ const menuItems: MenuItem[] = [
 ];
 
 export default function Menu() {
+  const { addToCart } = useCart();
+
   const [activeCategory, setActiveCategory] = useState<string>("all");
 
   const categories = [
@@ -1857,7 +1859,7 @@ export default function Menu() {
         </div>
       
 {/* Добавлено: кнопка В корзину */}
-<button onClick={() => { const {{ addToCart }} = useCart(); addToCart({ id: Date.now(), name: 'Блюдо (пример)', price: 0 }, 1); }} className="mt-2 px-3 py-2 rounded bg-black text-white">В корзину</button>
+<button onClick={() => addToCart({ id: Date.now(), name: 'Блюдо (пример)', price: 0 }, 1); }} className="mt-2 px-3 py-2 rounded bg-black text-white">В корзину</button>
 </div>
     </section>
   );

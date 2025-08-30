@@ -5,7 +5,7 @@ import { ChevronDown } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import Cart from '../Cart';
-import { CartProvider } from "../useCart.jsx";
+import { CartProvider } from "../useCart";
 
 
 const NavigationMenu = React.forwardRef<
