@@ -1,0 +1,460 @@
+import { useState } from "react";\nimport { useCart } from "useCart.jsx";\n
+
+interface MenuItem {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  category: string;
+  unit?: string;
+  quantity?: string;
+}
+
+const menuItems: MenuItem[] = [
+  // Завтраки
+  {
+    id: "1",
+    name: "Блины домашние с мясом и сметаной",
+    description: "Традиционные домашние блины с мясной начинкой и сметаной",
+    price: 250,
+    category: "breakfast",
+    quantity: "3 шт"
+  },
+  {
+    id: "2",
+    name: "Блины домашние с творогом и сметаной",
+    description: "Нежные блины с творожной начинкой и сметаной",
+    price: 250,
+    category: "breakfast",
+    quantity: "2 шт"
+  },
+  {
+    id: "3",
+    name: "Блины домашние с джемом",
+    description: "Сладкие блины с домашним джемом",
+    price: 200,
+    category: "breakfast",
+    quantity: "3 шт"
+  },
+  {
+    id: "4",
+    name: "Яичница по-кавказски",
+    description: "Сытная яичница, приготовленная по кавказским традициям",
+    price: 250,
+    category: "breakfast"
+  },
+  {
+    id: "5",
+    name: "Сырники со сметаной",
+    description: "Нежные творожные сырники с домашней сметаной",
+    price: 300,
+    category: "breakfast",
+    quantity: "3 шт"
+  },
+  {
+    id: "6",
+    name: "Каша овсяная на молоке",
+    description: "Полезная овсяная каша, сваренная на молоке",
+    price: 200,
+    category: "breakfast"
+  },
+
+  // Первые блюда
+  {
+    id: "7",
+    name: "Борщ с говядиной",
+    description: "Традиционный украинский борщ с нежной говядиной",
+    price: 370,
+    category: "soups"
+  },
+  {
+    id: "8",
+    name: "Хашлама с говядиной",
+    description: "Ароматный кавказский суп с говядиной и овощами",
+    price: 470,
+    category: "soups"
+  },
+  {
+    id: "9",
+    name: "Хашлама с бараниной",
+    description: "Традиционное блюдо с нежной бараниной",
+    price: 530,
+    category: "soups"
+  },
+  {
+    id: "10",
+    name: "Солянка сборная",
+    description: "Сытная солянка с разными видами мяса",
+    price: 470,
+    category: "soups"
+  },
+  {
+    id: "11",
+    name: "Уха по царски",
+    description: "Изысканная уха из благородных пород рыб",
+    price: 480,
+    category: "soups"
+  },
+  {
+    id: "12",
+    name: "Лагман из баранины",
+    description: "Узбекский суп-лапша с бараниной и овощами",
+    price: 550,
+    category: "soups"
+  },
+
+  // Вторые блюда - Армянская кухня
+  {
+    id: "13",
+    name: "Хинкали с бараниной",
+    description: "Традиционные грузинские пельмени с бараниной",
+    price: 600,
+    category: "armenian",
+    quantity: "5 шт"
+  },
+  {
+    id: "14",
+    name: "Хинкали с говядиной",
+    description: "Традиционные грузинские пельмени с говядиной",
+    price: 550,
+    category: "armenian",
+    quantity: "5 шт"
+  },
+  {
+    id: "15",
+    name: "Хачапури по-аджарски",
+    description: "Грузинская лодочка с сыром и яйцом",
+    price: 280,
+    category: "armenian",
+    quantity: "1 шт"
+  },
+  {
+    id: "16",
+    name: "Хачапури по-имеретински",
+    description: "Грузинский хлеб с сыром",
+    price: 250,
+    category: "armenian",
+    quantity: "1 шт"
+  },
+  {
+    id: "17",
+    name: "Лобио",
+    description: "Традиционное грузинское блюдо из фасоли",
+    price: 280,
+    category: "armenian"
+  },
+  {
+    id: "18",
+    name: "Пхали из свеклы",
+    description: "Грузинская закуска из свеклы с орехами",
+    price: 200,
+    category: "armenian"
+  },
+  {
+    id: "19",
+    name: "Пхали из шпината",
+    description: "Грузинская закуска из шпината с орехами",
+    price: 200,
+    category: "armenian"
+  },
+  {
+    id: "20",
+    name: "Долма",
+    description: "Виноградные листья с мясной начинкой",
+    price: 350,
+    category: "armenian",
+    quantity: "5 шт"
+  },
+  {
+    id: "21",
+    name: "Сациви с курицей",
+    description: "Традиционное грузинское блюдо с ореховым соусом",
+    price: 380,
+    category: "armenian"
+  },
+
+  // Блюда из рыбы
+  {
+    id: "22",
+    name: "Форель на пару",
+    description: "Свежая форель, приготовленная на пару",
+    price: 950,
+    category: "fish",
+    unit: "1 кг"
+  },
+  {
+    id: "23",
+    name: "Форель жареная",
+    description: "Форель, жаренная до золотистой корочки",
+    price: 950,
+    category: "fish",
+    unit: "1 кг"
+  },
+  {
+    id: "24",
+    name: "Форель на гриле",
+    description: "Форель, приготовленная на гриле",
+    price: 950,
+    category: "fish",
+    unit: "1 кг"
+  },
+  {
+    id: "25",
+    name: "Окунь морской жареный",
+    description: "Свежий морской окунь, жаренный с пряностями",
+    price: 750,
+    category: "fish",
+    unit: "1 кг"
+  },
+  {
+    id: "26",
+    name: "Окунь морской на пару",
+    description: "Диетическое блюдо из морского окуня",
+    price: 750,
+    category: "fish",
+    unit: "1 кг"
+  },
+  {
+    id: "27",
+    name: "Окунь морской на гриле",
+    description: "Морской окунь, приготовленный на гриле",
+    price: 750,
+    category: "fish",
+    unit: "1 кг"
+  },
+
+  // Салаты
+  {
+    id: "28",
+    name: "Салат Цезарь с курицей",
+    description: "Классический салат с курицей, сыром пармезан и соусом",
+    price: 380,
+    category: "salads"
+  },
+  {
+    id: "29",
+    name: "Салат Греческий",
+    description: "Свежие овощи с оливками и сыром фета",
+    price: 320,
+    category: "salads"
+  },
+  {
+    id: "30",
+    name: "Салат с форелью",
+    description: "Свежий салат с кусочками слабосоленой форели",
+    price: 450,
+    category: "salads"
+  },
+  {
+    id: "31",
+    name: "Салат овощной",
+    description: "Микс свежих овощей с заправкой",
+    price: 250,
+    category: "salads"
+  },
+
+  // Мангал
+  {
+    id: "32",
+    name: "Шашлык из баранины",
+    description: "Сочный шашлык из отборной баранины",
+    price: 800,
+    category: "grill",
+    unit: "1 кг"
+  },
+  {
+    id: "33",
+    name: "Шашлык из говядины",
+    description: "Ароматный шашлык из говядины",
+    price: 700,
+    category: "grill",
+    unit: "1 кг"
+  },
+  {
+    id: "34",
+    name: "Шашлык из свинины",
+    description: "Нежный шашлык из свинины",
+    price: 650,
+    category: "grill",
+    unit: "1 кг"
+  },
+  {
+    id: "35",
+    name: "Шашлык из курицы",
+    description: "Диетический шашлык из куриного филе",
+    price: 550,
+    category: "grill",
+    unit: "1 кг"
+  },
+  {
+    id: "36",
+    name: "Люля-кебаб",
+    description: "Традиционный кавказский люля-кебаб",
+    price: 600,
+    category: "grill",
+    unit: "1 кг"
+  },
+
+  // Пицца
+  {
+    id: "37",
+    name: "Пицца Маргарита",
+    description: "Классическая пицца с томатами, моцареллой и базиликом",
+    price: 450,
+    category: "pizza"
+  },
+  {
+    id: "38",
+    name: "Пицца Пепперони",
+    description: "Пицца с острой колбаской пепперони",
+    price: 520,
+    category: "pizza"
+  },
+  {
+    id: "39",
+    name: "Пицца 4 сыра",
+    description: "Пицца с четырьмя видами сыра",
+    price: 580,
+    category: "pizza"
+  },
+  {
+    id: "40",
+    name: "Пицца с грибами",
+    description: "Пицца с шампиньонами и сыром",
+    price: 480,
+    category: "pizza"
+  },
+
+  // Национальная кухня
+  {
+    id: "41",
+    name: "Плов узбекский",
+    description: "Традиционный узбекский плов с бараниной",
+    price: 450,
+    category: "national"
+  },
+  {
+    id: "42",
+    name: "Манты с мясом",
+    description: "Паровые манты с мясной начинкой",
+    price: 350,
+    category: "national",
+    quantity: "5 шт"
+  },
+  {
+    id: "43",
+    name: "Чахохбили",
+    description: "Грузинское блюдо из курицы в томатном соусе",
+    price: 420,
+    category: "national"
+  }
+];
+
+export default function Menu() {
+  const [activeCategory, setActiveCategory] = useState<string>("all");
+
+  const categories = [
+    { id: "all", name: "Все блюда", icon: "fas fa-utensils" },
+    { id: "breakfast", name: "Завтраки", icon: "fas fa-egg" },
+    { id: "soups", name: "Первые блюда", icon: "fas fa-bowl-food" },
+    { id: "armenian", name: "Армянская кухня", icon: "fas fa-leaf" },
+    { id: "fish", name: "Блюда из рыбы", icon: "fas fa-fish" },
+    { id: "salads", name: "Салаты", icon: "fas fa-seedling" },
+    { id: "grill", name: "Мангал", icon: "fas fa-fire" },
+    { id: "pizza", name: "Пицца", icon: "fas fa-pizza-slice" },
+    { id: "national", name: "Национальная кухня", icon: "fas fa-globe" }
+  ];
+
+  const filteredItems = activeCategory === "all" 
+    ? menuItems 
+    : menuItems.filter(item => item.category === activeCategory);
+
+  const handleOrder = (item: MenuItem) => {
+    const message = `Здравствуйте! Хочу заказать: ${item.name} - ${item.price}₽`;
+    const whatsappUrl = `https://wa.me/79407760141?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
+  return (
+    <section id="menu" className="py-20 bg-gradient-to-br from-cafe-cornsilk to-orange-50">
+      <div className="container mx-auto px-4">
+        <div className="max-w-7xl mx-auto">
+          {/* Header */}
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-cafe-brown mb-6">
+              Наше меню
+            </h2>
+            <div className="w-24 h-1 bg-cafe-chocolate mx-auto mb-8"></div>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Откройте для себя богатство вкусов грузинской и кавказской кухни. 
+              Каждое блюдо готовится с любовью из свежих местных продуктов.
+            </p>
+          </div>
+
+          {/* Category Filters */}
+          <div className="flex flex-wrap justify-center gap-4 mb-12">
+            {categories.map((category) => (
+              <button
+                key={category.id}
+                onClick={() => setActiveCategory(category.id)}
+                className={`px-6 py-3 rounded-full font-medium transition-all duration-300 flex items-center space-x-2 ${
+                  activeCategory === category.id
+                    ? "bg-cafe-brown text-white shadow-lg transform scale-105"
+                    : "bg-white text-cafe-brown hover:bg-cafe-brown hover:text-white shadow-md"
+                }`}
+              >
+                <i className={`${category.icon} text-sm`}></i>
+                <span>{category.name}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* Menu Items */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredItems.map((item) => (
+              <div key={item.id} className="bg-white rounded-xl shadow-lg p-6 transition-transform duration-300 hover:scale-105">
+                <h3 className="text-xl font-serif font-semibold text-cafe-brown mb-2">{item.name}</h3>
+                <p className="text-gray-600 mb-4">{item.description}</p>
+                <div className="flex justify-between items-center">
+                  <div className="flex flex-col">
+                    <span className="text-2xl font-bold text-cafe-chocolate">{item.price}₽</span>
+                    {(item.quantity || item.unit) && (
+                      <span className="text-sm text-gray-500">{item.quantity || item.unit}</span>
+                    )}
+                  </div>
+                  <button 
+                    onClick={() => handleOrder(item)}
+                    className="bg-cafe-brown text-white px-4 py-2 rounded-lg hover:bg-cafe-chocolate transition-colors duration-200"
+                  >
+                    <i className="fas fa-plus mr-2"></i>Заказать
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Call to Action */}
+          <div className="text-center mt-16">
+            <div className="bg-white rounded-2xl p-8 shadow-xl max-w-2xl mx-auto">
+              <h3 className="text-2xl font-serif font-bold text-cafe-brown mb-4">
+                Готовы сделать заказ?
+              </h3>
+              <p className="text-gray-600 mb-6">
+                Свяжитесь с нами через WhatsApp для бронирования столика или заказа на вынос
+              </p>
+              <a 
+                href="https://wa.me/79407760141" 
+                className="inline-flex items-center bg-cafe-brown text-white px-8 py-4 rounded-lg font-medium hover:bg-cafe-chocolate transition-colors duration-200 text-lg"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i className="fab fa-whatsapp mr-3 text-xl"></i>
+                Связаться с нами
+              </a>
+            </div>
+          </div>
+        </div>
+      \n{/* Добавлено: кнопка В корзину */}\n<button onClick={() => { const {{ addToCart }} = useCart(); addToCart({ id: Date.now(), name: 'Блюдо (пример)', price: 0 }, 1); }} className="mt-2 px-3 py-2 rounded bg-black text-white">В корзину</button>\n</div>
+    </section>
+  );
+}
