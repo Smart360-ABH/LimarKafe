@@ -1,18 +1,18 @@
 import bakeryImage from '@assets/photo_5246919464442787471_y_1754880763338.jpg';
-import appetizersImage from '@assets/Без имени-1_1754880763338.jpg';
-import middleEasternImage from '@assets/Без имени-2_1754880763339.jpg';
-import mainDishesImage from '@assets/Второе блюдо_1754880763339.jpg';
-import mainDishes2Image from '@assets/Второе блюдо1_1754880763340.jpg';
-import mainDishes3Image from '@assets/Второе блюдо2_1754880763341.jpg';
-import garnishImage from '@assets/гарниры_1754880763342.jpg';
-import soupsImage from '@assets/Первое блюдо_1754880763343.jpg';
-import soups2Image from '@assets/Первое блюдо1_1754880763343.jpg';
-import pizzaImage from '@assets/Пицца_1754880763344.jpg';
-import fishImage from '@assets/Рыба-2_1754880763344.jpg';
-import saladsImage from '@assets/Салаты_1754880763345.jpg';
-import coldAppsImage from '@assets/Холодные закуски_1754880763345.jpg';
-import breakfastImage from '@assets/Завтраки1_1754880916007.jpg';
-import pastaImage from '@assets/Пасты_1754880916008.jpg';
+import appetizersImage from '@assets/IMG_20250723_175718_089_1754878716579.jpg';
+import middleEasternImage from '@assets/IMG_20250723_175736_310_1754878854047.jpg';
+import mainDishesImage from '@assets/IMG_20250723_175741_510_1754878854048.jpg';
+import mainDishes2Image from '@assets/IMG_20250723_175741_552_1754878854048.jpg';
+import mainDishes3Image from '@assets/asset_001.jpg';
+import garnishImage from '@assets/asset_002.jpg';
+import soupsImage from '@assets/asset_003.jpg';
+import soups2Image from '@assets/asset_004.jpg';
+import pizzaImage from '@assets/asset_005.jpg';
+import fishImage from '@assets/asset_006.jpg';
+import saladsImage from '@assets/asset_007.jpg';
+import coldAppsImage from '@assets/asset_008.jpg';
+import breakfastImage from '@assets/asset_009.jpg';
+import pastaImage from '@assets/asset_010.jpg';
 
 export default function Gallery() {
   const galleryItems = [
